@@ -5,9 +5,11 @@ To install the extension
 
 1. Clone the repository in your extensions folder.
 
-    $ git clone https://github.com/cray146/org.civicrm.payment.ogone.git
+     $ git clone https://github.com/cray146/org.civicrm.payment.ogone.git
+
     or this one, a bit more recent,
-    $ git clone https://github.com/Seb35/org.civicrm.payment.ogone.git
+
+     $ git clone https://github.com/Seb35/org.civicrm.payment.ogone.git
 
 2. Make a symbolic link in <civicrm root>/packages/OgoneUtils.php to OgoneUtils.php
 3. Make a symbolic link in <civicrm root>/extern/OgoneNotify.php to OgoneNotify.php
