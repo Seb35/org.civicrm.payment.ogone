@@ -187,17 +187,6 @@ CRM_Core_Error::debug_var('doTransferCheckOut - component', $component);
     $OgoneParams['exceptionurl'] = $notifyURL;
     $OgoneParams['cancelurl'] = $notifyURL;
 
-    // ogone was failing with "unknown order/1/s/" due to non ascii7 char. This is an ugly workaround
-    foreach ($OgoneParams as &$str) {
-      $from = 'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ';
-      $to   = 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY';     
-      $keys = array();
-      $values = array();
-      preg_match_all('/./u', $from, $keys);
-      preg_match_all('/./u', $to, $values);
-      $mapping = array_combine($keys[0], $values[0]);
-      $str= strtr($str, $mapping);
-    }
     $shaSign = calculateSHA1($OgoneParams, $this->_paymentProcessor['password']);
     $OgoneParams['SHASign'] = $shaSign;
 
@@ -209,7 +198,7 @@ CRM_Core_Error::debug_var('doTransferCheckOut - component', $component);
     // Build our query string;
     $query_string = '';
     foreach ($OgoneParams as $name => $value) {
-      $query_string .= $name . '=' . $value . '&';
+      $query_string .= $name . '=' . urlencode($value) . '&';
     }
 
     // Remove extra &
