@@ -8,9 +8,18 @@
  * 5. parameters that do not have a value should NOT be included in the string to hash
  * 6. END YOUR COMBINE STRING WITH THE SHA KEY
  */
+
+function array_change_key_case_unicode( $arr, $c = CASE_LOWER ) {
+  $c = ($c == CASE_LOWER) ? MB_CASE_LOWER : MB_CASE_UPPER;
+  foreach( $arr as $k => $v ) {
+    $ret[mb_convert_case($k, $c, 'UTF-8')] = $v;
+  }
+  return $ret;
+}
+
 function calculateSHA1($params, $passphrase) {
   // all keys to uppercase
-  $params = array_change_key_case($params, CASE_UPPER);
+  $params = array_change_key_case_unicode($params, CASE_UPPER);
   // sort on keys
   ksort($params);
   $s = '';
